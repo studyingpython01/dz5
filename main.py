@@ -96,14 +96,11 @@ while True:
                     mistakes += 1
                     print(answers.get(birthdays[key]))
                 else:
-                    right += 1
-
+                    right +
 
             def calculate(x, y, z):
                 result = x * (y / z)
                 return result
-
-
             print('Ошибки:', mistakes)
             print('Правильные ответы:', right)
             right = int(right)
