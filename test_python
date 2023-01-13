@@ -1,0 +1,25 @@
+import pytest
+import unittest
+import math
+from math import hypot
+from math import sqrt
+def test_filter():
+    numbers = [1, 2, 3, 4, 5]
+    def is_even(x):
+        return x % 2 == 0
+    evens = list(filter(is_even, numbers))
+    assert evens == [2, 4]
+def test_map():
+    def umnogenie(x):
+        return x * 2
+    assert list(map(umnogenie, [1, 2, 3])) == [2, 4, 6]
+def test_pi():
+    assert math.pi == pytest.approx(3.141592653589793)
+def test_hypot():
+    assert hypot(-2, 0) == 2.0
+def test_sqrt():
+    number = 36
+    result = sqrt(number)
+    assert result == 6
+def test_pow():
+    assert pow(2, 3) == 8

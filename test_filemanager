@@ -1,0 +1,6 @@
+def test_calculate():
+   def calculate(x, y, z):
+      result = x * (y / z)
+      return result
+   assert calculate(5, 6, 3) == 10
+
