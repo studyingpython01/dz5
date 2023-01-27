@@ -1,7 +1,5 @@
 import shutil
 import random
-  # False
-x = 8
 import os
 while True:
     print('- создать папку: 1')
@@ -17,6 +15,7 @@ while True:
     print('- создатель программы: 11')
     print('- играть в викторину`: 12')
     print('- мой банковский счет: 13')
+    print('- сохранить содержимое рабочей директории в файл: 14')
     answer = int(input('Введите цифру:'))
     if answer == 1 :
         answer1 = input('Введите имя папки:')
@@ -60,6 +59,14 @@ while True:
          something = 0
     if answer == 11:
         print('Сделано Васильевым Артёмом (12 лет)')
+    if answer == 14:
+      que = input('В какой директории будет проводиться поиск?')
+      path = que
+      files = os.listdir(path)
+      with open('files.txt', 'w') as f:
+          for file in files:  
+              if os.path.isfile(os.path.join(path, file)):
+                  f.write(file + '\n')
     if answer == 12:
         while True:
 
@@ -112,35 +119,51 @@ while True:
                 break
     if answer == 13:
         card = 0
-        buyings = []
-        print('На вашем счету', card, 'рублей.')
-        money = []
-        while True:
-            print('Вы можете:')
-            print('1. Пополнить свой счёт;')
-            print('2. Что-либо купить;')
-            print('3. Просмотреть историю покупок;')
-            print('4. Выйти из программы.')
-            choice = input('Выберите пункт меню')
-            if choice == '1':
-                money_in = int(input('Сколько денег вы хотите положить на свой счёт?'))
-                card += money_in
-                print('Перевод средств осуществлён.')
-                pass
-            elif choice == '2':
-                answer_d = int(input('Сколько денег вы хотите потратить?'))
-                if answer_d > card:
-                    print('К сожалению, на вашем счёте недостаточно денег.')
-                    pass
-                else:
-                    answer_c = input('Вы совершили покупку. Пожалуйста, назовите её.')
-                    card -= answer_d
-                    buyings.append(answer_c, answer_d)
-                pass
-            elif choice == '3':
-                print('Ваш лист покупок:', list(buyings))
-                pass
-            elif choice == '4':
-                break
-            else:
-                print('Неверный пункт меню')
+orders = []
+if os.path.exists('order.txt'):
+    with open('order.txt', 'r') as f:
+        for order in f:
+            orders.append((f'{order}\n'))
+for order in orders:
+    print(order)
+money = 0
+if os.path.exists('счёт.txt'):
+    with open('счёт.txt', 'r') as f:
+        data = f.read()
+        card += int(data)
+print(card)
+while True:
+    print('Вы можете:')
+    print('1. Пополнить свой счёт;')
+    print('2. Что-либо купить;')
+    print('3. Просмотреть историю покупок;')
+    print('4. Выйти из прогаммы.')
+    choice = input('Выберите пункт меню')
+    if choice == '1':
+        money_in = int(input('Сколько денег вы хотите положить на свой счёт?'))
+        card += money_in
+        print('Перевод средств осуществлён.')
+        pass
+    elif choice == '2':
+        answer_d = int(input('Сколько денег вы хотите потратить?'))
+        if answer_d >  int(card):
+            print('К сожалению, на вашем счёте недостаточно денег.')
+            pass
+        else:
+            answer_c = input('Вы совершили покупку. Пожалуйста, назовите её.')
+            card -= answer_d
+            orders.append(answer_c)
+            pass
+    elif choice == '3':
+        for order in orders:
+            print(order)
+        pass
+    elif choice == '4':
+        with open('order.txt', 'w') as f:
+            for order in orders:
+                f.write(f'{order}\n')
+        with open('счёт.txt', 'w') as f:
+            f.write(str(card))
+        break
+    else:
+        print('Неверный пункт меню')
