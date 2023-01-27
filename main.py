@@ -15,6 +15,7 @@ while True:
     print('- создатель программы: 11')
     print('- играть в викторину`: 12')
     print('- мой банковский счет: 13')
+    print('- сохранить содержимое рабочей директории в файл: 14')
     answer = int(input('Введите цифру:'))
     if answer == 1 :
         answer1 = input('Введите имя папки:')
@@ -58,6 +59,14 @@ while True:
          something = 0
     if answer == 11:
         print('Сделано Васильевым Артёмом (12 лет)')
+    if answer == 14:
+      que = input('В какой директории будет проводиться поиск?')
+      path = que
+      files = os.listdir(path)
+      with open('files.txt', 'w') as f:
+          for file in files:  
+              if os.path.isfile(os.path.join(path, file)):
+                  f.write(file + '\n')
     if answer == 12:
         while True:
 
