@@ -18,26 +18,44 @@ while True:
     print('- сохранить содержимое рабочей директории в файл: 14')
     answer = int(input('Введите цифру:'))
     if answer == 1 :
-        answer1 = input('Введите имя папки:')
-        os.mkdir(answer1)
+        try:
+            answer1 = input('Введите имя папки:')
+            os.mkdir(answer1)
+        except: FileExistsError
+        print("Такая папка уже существует!")
     if answer == 2:
-        answer2 = input('Введите имя папки:')
-        os.rmdir(answer2)
+        try:
+            answer2 = input('Введите имя папки:')
+            os.rmdir(answer2)
+        except: FileNotFoundErrorError
+        print("Такой папки не существует!")
     if answer == 3:
-        answer3 = input('Что вы хотите копировать?')
-        answer4 = input('Последующее имя папки:')
-        shutil.copy(answer3, answer4)
+        try:
+            answer3 = input('Что вы хотите копировать?')
+            answer4 = input('Последующее имя папки:')
+            shutil.copy(answer3, answer4)
+        except: FileNotFoundErrorError
+        print("Такой папки не существует!")
     if answer == 4:
-        answer5 = input('Имя файла:')
-        file = open(answer5, 'w+')
-        file.close()
+        try:
+            answer5 = input('Имя файла:')
+            file = open(answer5, 'w+')
+            file.close()
+        except: FileExistsError
+        print("Такой файл уже существует!")
     if answer == 5:
-        my_answer2 = input('Введите имя файла:')
-        os.remove(my_answer2)
+        try:
+            my_answer2 = input('Введите имя файла:')
+            os.remove(my_answer2)
+        except: FileNotFoundErrorError
+        print("Такой файл не существует!")
     if answer == 6:
-      my_answer = input('Какой файл вы хотите скопировать?')
-      my_answer1 = input(' В какой файл ?')
-      shutil.copy(my_answer, my_answer1)
+      try:
+          my_answer = input('Какой файл вы хотите скопировать?')
+          my_answer1 = input(' В какой файл ?')
+          shutil.copy(my_answer, my_answer1)
+      except: FileExistsError
+      print("Такой файл не существует!")
     if answer == 7:
        print(os.listdir(path="."))
     if answer == 8:
@@ -103,7 +121,7 @@ while True:
                     mistakes += 1
                     print(answers.get(birthdays[key]))
                 else:
-                    right +
+                    right += 1
 
             def calculate(x, y, z):
                 result = x * (y / z)
@@ -119,51 +137,51 @@ while True:
                 break
     if answer == 13:
         card = 0
-orders = []
-if os.path.exists('order.txt'):
-    with open('order.txt', 'r') as f:
-        for order in f:
-            orders.append((f'{order}\n'))
-for order in orders:
-    print(order)
-money = 0
-if os.path.exists('счёт.txt'):
-    with open('счёт.txt', 'r') as f:
-        data = f.read()
-        card += int(data)
-print(card)
-while True:
-    print('Вы можете:')
-    print('1. Пополнить свой счёт;')
-    print('2. Что-либо купить;')
-    print('3. Просмотреть историю покупок;')
-    print('4. Выйти из прогаммы.')
-    choice = input('Выберите пункт меню')
-    if choice == '1':
-        money_in = int(input('Сколько денег вы хотите положить на свой счёт?'))
-        card += money_in
-        print('Перевод средств осуществлён.')
-        pass
-    elif choice == '2':
-        answer_d = int(input('Сколько денег вы хотите потратить?'))
-        if answer_d >  int(card):
-            print('К сожалению, на вашем счёте недостаточно денег.')
-            pass
-        else:
-            answer_c = input('Вы совершили покупку. Пожалуйста, назовите её.')
-            card -= answer_d
-            orders.append(answer_c)
-            pass
-    elif choice == '3':
+        orders = []
+        if os.path.exists('order.txt'):
+            with open('order.txt', 'r') as f:
+                for order in f:
+                    orders.append((f'{order}\n'))
         for order in orders:
             print(order)
-        pass
-    elif choice == '4':
-        with open('order.txt', 'w') as f:
-            for order in orders:
-                f.write(f'{order}\n')
-        with open('счёт.txt', 'w') as f:
-            f.write(str(card))
-        break
-    else:
-        print('Неверный пункт меню')
+        money = 0
+        if os.path.exists('счёт.txt'):
+            with open('счёт.txt', 'r') as f:
+                data = f.read()
+                card += int(data)
+        print(card)
+        while True:
+            print('Вы можете:')
+            print('1. Пополнить свой счёт;')
+            print('2. Что-либо купить;')
+            print('3. Просмотреть историю покупок;')
+            print('4. Выйти из прогаммы.')
+            choice = input('Выберите пункт меню')
+            if choice == '1':
+                money_in = int(input('Сколько денег вы хотите положить на свой счёт?'))
+                card += money_in
+                print('Перевод средств осуществлён.')
+                pass
+            elif choice == '2':
+                answer_d = int(input('Сколько денег вы хотите потратить?'))
+                if answer_d > int(card):
+                    print('К сожалению, на вашем счёте недостаточно денег.')
+                    pass
+                else:
+                    answer_c = input('Вы совершили покупку. Пожалуйста, назовите её.')
+                    card -= answer_d
+                    orders.append(answer_c)
+                    pass
+            elif choice == '3':
+                for order in orders:
+                    print(order)
+                pass
+            elif choice == '4':
+                with open('order.txt', 'w') as f:
+                    for order in orders:
+                        f.write(f'{order}\n')
+                with open('счёт.txt', 'w') as f:
+                    f.write(str(card))
+                break
+            else:
+                print('Неверный пункт меню')
